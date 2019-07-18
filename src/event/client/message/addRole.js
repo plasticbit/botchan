@@ -120,8 +120,10 @@ module.exports = {
                             await member.addRole(result, `${message.author.username} -> ${result.name}`)
                             message.reply(`役職を追加しました。\n\`\`\`c\n\"${result.name}\"\n\`\`\``)
                         } catch (err) {
-                            message.reply(`役職を割り当てられませんでした。\n\`\`\`js\n${("message" in err ? `-> ${err.message}` : "...")}\m\`\`\``)
                             console.log(err)
+                            message.reply(
+                                `役職を割り当てられませんでした。\n\`\`\`js\n${("message" in err ? `-> ${err.message}` : "...")}\`\`\``
+                            )
                         }
                         break
 
