@@ -1,0 +1,22 @@
+{
+  "name": "botchan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BinaryDolphin29/botchan.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BinaryDolphin29/botchan/issues"
+  },
+  "homepage": "https://github.com/BinaryDolphin29/botchan#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
