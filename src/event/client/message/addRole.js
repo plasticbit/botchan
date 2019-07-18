@@ -5,7 +5,6 @@ module.exports = {
     examples: "bn@add\nbn@add 4\nbn@add discord.js",
     description: "ユーザーに役職を追加します。",
     Do: async message => {
-
         const client = message.client
         const member = message.guild.member(message.author)
         const map = new Map()
@@ -30,7 +29,6 @@ module.exports = {
             return
         }
 
-
         let number = 0
         const list = Roles.map(role => {
             number++
@@ -38,7 +36,6 @@ module.exports = {
 
             return `${number} ${role.name}`
         })
-
 
         // 埋め込みベース
         const embed = {
@@ -50,7 +47,6 @@ module.exports = {
                 }
             }
         }
-
 
         // ページわけ
         const half = list.length / 2
@@ -79,10 +75,8 @@ module.exports = {
             }]
         }
 
-
         // TODO: 候補を表示
         if (!!message.args.length) {
-
             const arg = message.args[0].toLocaleLowerCase()
             const a = map.get(Number(arg))
             const b = Roles.find($ => $.name.toLocaleLowerCase().startsWith(arg))
@@ -114,8 +108,6 @@ module.exports = {
                     !Emoji.includes(ReactName)
                 ) return
 
-
-                // main_message.clearReactions()
                 await main_message.delete()
 
                 switch (ReactName) {
