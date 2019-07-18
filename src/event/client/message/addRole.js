@@ -32,11 +32,10 @@ module.exports = {
         const list = Roles.map(role => {
             number++
             map.set(number, role)
-
             return `${number} ${role.name}`
         })
 
-        // 埋め込みベース
+        const half = list.length / 2
         const embed = {
             embed: {
                 color: 0xff1493,
@@ -47,11 +46,10 @@ module.exports = {
             }
         }
 
-        // ページ分割
-        const half = list.length / 2
         if (half >= 5) {
             let list1 = half
             let list2 = half
+
             if (list.length % 2 !== 0) {
                 list1 += 1
                 list2 += 1
@@ -63,9 +61,9 @@ module.exports = {
                 inline: true
             },
             {
-                    name: "ㅤ",
-                    value: `\`\`\`\n${list.slice(list2).join("\n")}\n\`\`\``,
-                    inline: true
+                name: "ㅤ",
+                value: `\`\`\`\n${list.slice(list2).join("\n")}\n\`\`\``,
+                inline: true
             })
         } else {
             embed.embed.fields = [{
