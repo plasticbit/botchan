@@ -1,8 +1,8 @@
 const Emoji = ["⭕", "❌"]
 module.exports = {
-    usage: "bn@add\nbn@add <number>,\nbn@add <name>",
-    examples: "bn@add\nbn@add 4\nbn@add discord.js",
-    description: "ユーザーに役職を追加します。",
+    usage: "b;addRole\nb;addRole <number>,\nb;addRole <name>",
+    examples: "b;addRole\nb;addRole 4\nb;addRole discord.js",
+    description: "ユーザーへ役職を追加します。",
     Do: async message => {
         const client = message.client
         const member = message.guild.member(message.author)
