@@ -1,5 +1,4 @@
 const Emoji = ["⭕", "❌"]
-
 module.exports = {
     usage: "bn@add\nbn@add <number>,\nbn@add <name>",
     examples: "bn@add\nbn@add 4\nbn@add discord.js",
@@ -48,7 +47,7 @@ module.exports = {
             }
         }
 
-        // ページわけ
+        // ページ分割
         const half = list.length / 2
         if (half >= 5) {
             let list1 = half
@@ -63,11 +62,11 @@ module.exports = {
                 value: `\`\`\`\n${list.slice(0, list1).join("\n")}\n\`\`\``,
                 inline: true
             },
-                {
+            {
                     name: "ㅤ",
                     value: `\`\`\`\n${list.slice(list2).join("\n")}\n\`\`\``,
                     inline: true
-                })
+            })
         } else {
             embed.embed.fields = [{
                 name: "追加可能な役職一覧",
@@ -114,7 +113,7 @@ module.exports = {
                     case Emoji[1]:
                         message.reply("キャンセルしました👋", global.syntax)
                             .then(m => m.delete(7000))
-                    break
+                        break
 
                     case Emoji[0]:
                         try {
@@ -124,7 +123,7 @@ module.exports = {
                             message.reply(`役職を割り当てられませんでした。\n\`\`\`js\n${("message" in err ? `-> ${err.message}` : "...")}\m\`\`\``)
                             console.log(err)
                         }
-                    break
+                        break
 
                     default: return
                 }
