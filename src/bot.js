@@ -1,4 +1,4 @@
-const { Client, Message } = require("discord.js")
+const { Client } = require("discord.js")
 const client = new Client({
     messageCacheMaxSize: 500,
     messageCacheLifetime: 120,
@@ -25,8 +25,6 @@ process.on("exit", async () => {
 
 .on("SIGINT", async () => {
     await client.destroy()
-    console.log("ログアウトしました。")
-
     process.exit(0)
 })
 
