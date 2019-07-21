@@ -1,8 +1,10 @@
 const Emoji = ["⭕", "❌"]
+const { Message } = require("discord.js")
 module.exports = {
     usage: "b;addRole\nb;addRole <number>,\nb;addRole <name>",
     examples: "b;addRole\nb;addRole 4\nb;addRole discord.js",
     description: "ユーザーへ役職を追加します。",
+    /** @param {Message} message */
     Do: async message => {
         const client = message.client
         const member = message.guild.member(message.author)
@@ -61,9 +63,9 @@ module.exports = {
                 inline: true
             },
             {
-                name: "ㅤ",
-                value: `\`\`\`\n${list.slice(list2).join("\n")}\n\`\`\``,
-                inline: true
+                    name: "ㅤ",
+                    value: `\`\`\`\n${list.slice(list2).join("\n")}\n\`\`\``,
+                    inline: true
             })
         } else {
             embed.embed.fields = [{
