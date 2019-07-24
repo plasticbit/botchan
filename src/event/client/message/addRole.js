@@ -7,9 +7,8 @@ module.exports = {
     
     /** @param {Message} message */
     Do: async message => {
-        const client = message.client
-        const member = message.guild.member(message.author)
         const map = new Map()
+        const member = message.member
         const Roles = message.guild.roles.filter(_ =>
             _.calculatedPosition < message.guild.me.highestRole.calculatedPosition &&
             !_.managed &&
@@ -99,38 +98,43 @@ module.exports = {
             await main_message.react(Emoji[0])
             await main_message.react(Emoji[1])
 
-            main_message.awaitReactions(async (reaction, User) => {
-                const ReactName = reaction.emoji.name
+            main_message.awaitReactions(
+                async (reaction, User) => {
+                    const ReactName = reaction.emoji.name
 
-                if (
-                    User == client.user ||
-                    User.id != message.author.id ||
-                    !Emoji.includes(ReactName)
-                ) return
+                    if (
+                        User == message.client.user ||
+                        User.id != message.author.id ||
+                        !Emoji.includes(ReactName)
+                    ) return
 
-                await main_message.delete()
+                    await main_message.delete()
 
-                switch (ReactName) {
-                    case Emoji[1]:
-                        message.reply("キャンセルしました👋", global.syntax)
-                            .then(m => m.delete(7000))
-                        break
+                    switch (ReactName) {
+                        case Emoji[1]:
+                            message.reply("キャンセルしました👋", global.syntax)
+                                .then(m => m.delete(7000))
+                            break
 
-                    case Emoji[0]:
-                        try {
-                            await member.addRole(result, `${message.author.username} -> ${result.name}`)
-                            message.reply(`役職を追加しました。\n\`\`\`c\n\"${result.name}\"\n\`\`\``)
-                        } catch (err) {
-                            console.log(err)
-                            message.reply(
-                                `役職を割り当てられませんでした。\n\`\`\`js\n${("message" in err ? `-> ${err.message}` : "...")}\`\`\``
-                            )
-                        }
-                        break
+                        case Emoji[0]:
+                            try {
+                                await member.addRole(result, `${message.author.username} -> ${result.name}`)
+                                message.reply(`役職を追加しました。\n\`\`\`c\n\"${result.name}\"\n\`\`\``)
+                            } catch (err) {
+                                console.log(err)
+                                message.reply(
+                                    `役職を割り当てられませんでした。\n\`\`\`js\n${("message" in err ? `-> ${err.message}` : "...")}\`\`\``
+                                )
+                            }
+                            break
 
-                    default: return
+                        default: return
+                    }
+                }, {
+                    timeout: 30000
                 }
-            }, { timeout: 30000 })
+            ).catch(console.log)
+
         } else {
             message.reply(embed)
                 .then(m => m.delete(15000))
