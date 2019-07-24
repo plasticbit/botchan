@@ -36,7 +36,6 @@ module.exports = {
             return
         }
 
-
         const half = list.length / 2
         const embed = {
             embed: {
@@ -73,7 +72,6 @@ module.exports = {
                 value: `\n\`\`\`\n${list.join(",\n")}\n\`\`\`\n`
             }]
         }
-
 
         if (!!message.args.length) {
             const arg = message.args[0].toLocaleLowerCase()
