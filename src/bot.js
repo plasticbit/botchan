@@ -12,7 +12,7 @@ const handler = require("./event/handler")
 const other = handler.other
 
 // イベント
-client.once("ready", () => other.ready(client))
+client.on("ready", () => other.ready(client))
 .on("message", handler.message)
 .on("disconnect", other.disconnect)
 .on("warn", other.warn)
@@ -20,18 +20,11 @@ client.once("ready", () => other.ready(client))
 
 process.on("exit", async () => {
     await client.destroy()
-    process.exit(0)
-})
-
-.on("SIGINT", async () => {
+}).on("SIGINT", async () => {
     await client.destroy()
     process.exit(0)
-})
-
-.on("warning", warning => {
+}).on("warning", warning => {
     console.log(`Warning (process): ${warning.stack}\n`)
-})
-
-.on("unhandledRejection", (reason, promise) => {
+}).on("unhandledRejection", (reason, promise) => {
     console.log(`Reason:\n${reason}\nPromise: \n%o`, promise)
 })
