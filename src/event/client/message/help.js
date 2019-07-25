@@ -1,5 +1,3 @@
-
-
 module.exports = {
     usage: "b;help",
     examples: "b;help [command]",
@@ -9,13 +7,11 @@ module.exports = {
         const msg = new Array()
 
         for (const key in list) {
-            msg.push(
-                `${key}: ${list[key].description}`
-            )
+            msg.push(`${key}: ${list[key].description}`)
         }
 
         message.channel.send(
-            `\`\`\`Prefix b;\n${msg.join("\n")}\n\nPing: ${message.client.ping}\`\`\`https://github.com/BinaryDolphin29/botchan`
+            `\`\`\`Prefix b;\n${msg.join("\n")}\n\nPing: ${message.client.ping}ms\`\`\`https://github.com/BinaryDolphin29/botchan/`
         )
     }
 }
