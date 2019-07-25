@@ -14,6 +14,8 @@ module.exports = {
             )
         }
 
-        message.channel.send(`\`\`\`Prefix b;\n${msg.join("\n")}\`\`\`https://github.com/BinaryDolphin29/botchan`)
+        message.channel.send(
+            `\`\`\`Prefix b;\n${msg.join("\n")}\n\nPing: ${message.client.ping}\`\`\`https://github.com/BinaryDolphin29/botchan`
+        )
     }
 }
