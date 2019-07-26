@@ -6,12 +6,16 @@ module.exports = {
         const list = require("./list")
         const msg = new Array()
 
+        const url = "https://github.com/BinaryDolphin29/botchan/"
+        const client = message.client
+        const ping = Math.floor(client.ping)
+
         for (const key in list) {
             msg.push(`${key}: ${list[key].description}`)
         }
 
         message.channel.send(
-            `\`\`\`Prefix b;\n${msg.join("\n")}\n\nPing: ${message.client.ping}ms\`\`\`https://github.com/BinaryDolphin29/botchan/`
+            `\`\`\`Prefix b;\n${msg.join("\n")}\n\nPing: ${ping}ms\`\`\`${url}`
         )
     }
 }
