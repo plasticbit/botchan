@@ -9,14 +9,14 @@ const client = new Client({
 client.login(process.env.BOT_TOKEN || "Token")
 
 const handler = require("./event/handler")
-const other = handler.other
 
 // イベント
-client.on("ready", () => other.ready(client))
+client.on("ready", () => handler.ready(client))
 .on("message", handler.message)
-.on("disconnect", other.disconnect)
-.on("warn", other.warn)
-.on("error", other.error)
+.on("guildMemberAdd", handler.memberAdd)
+.on("disconnect", handler.disconnect)
+.on("warn", handler.warn)
+.on("error", handler.error)
 
 process.on("exit", async () => {
     await client.destroy()
