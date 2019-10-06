@@ -13,9 +13,10 @@ module.exports = message => {
         const command = content[0]
         message.args = content.slice(1).filter(value => value !== "")
 
-        const cmd = list[command]
-        if (cmd) {
-            cmd.Do(message)
+        for (const key in list) {
+            if (key.toLowerCase() === command || list.hasOwnProperty(command)) {
+                return list[key].Do(message)
+            }
         }
     }
 }
