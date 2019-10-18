@@ -6,7 +6,7 @@ const client = new Client({
 })
 
 // ログイン
-client.login(process.env.BOT_TOKEN || "Token")
+client.login(process.env.BOT_TOKEN)
 
 const handler = require("./event/handler")
 
