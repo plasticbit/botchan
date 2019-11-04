@@ -18,7 +18,7 @@ module.exports = {
         } else if (filter.size >= 3) {
             message.reply("チャンネルが複数あります。\nこれ以上チャンネルを作ることはできません！", global.syntax)
         } else {
-            console.log(channels.map(c => `${c.name}: ${c.position}`))
+            console.log(guild.channels.filter(c => c.parentID === "640931602309971970").map(c => `${c.name}: ${c.calculatedPosition}`))
             const newChannel = await guild.createChannel(channel.name, { type: "text" })
             await newChannel.setTopic(`${message.author.id},${Date.now()}`)
             await newChannel.setParent("640931602309971970")
