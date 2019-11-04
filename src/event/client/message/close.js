@@ -11,7 +11,7 @@ module.exports = {
         const authorID = message.author.id
         const TCauthorID = (channel.topic || "").split(",")[0]
         
-        if (authorID === TCauthorID && channel.parentID === "393442427912060928") {
+        if (authorID === TCauthorID && channel.parentID === "640931602309971970") {
             channel.delete()
         }
     }
