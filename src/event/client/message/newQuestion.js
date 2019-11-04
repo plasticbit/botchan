@@ -13,12 +13,14 @@ module.exports = {
         const channels = guild.channels
         const filter = channels.filterArray(ch => ch.name === channel.name)
 
+        message.guild.c
+
         if (filter.length > 3) {
             channel.reply("チャンネルが複数あります。\nこれ以上チャンネルを作ることはできません！", global.syntax)
         } else {
             guild.createChannel(channel.name, {
                 type: "text"
-            })
+            }).then(m => m.setParent("393442427912060928"))
         }
     }
 }
