@@ -21,7 +21,7 @@ module.exports = {
             const newChannel = await guild.createChannel(channel.name, { type: "text" })
             await newChannel.setTopic(`${message.author.id},${Date.now()}`)
             await newChannel.setParent("640931602309971970")
-            await newChannel.setPosition(channel.position)
+            await newChannel.setPosition(channel.position++)
             await newChannel.send(`このチャンネルは ${message.member.toString()} によって作成されました！\n__\`解決すれば closeコマンドを実行し、チャンネルを削除してください\`__`)
             
             // LANG-CATEGORY: 640931602309971970
