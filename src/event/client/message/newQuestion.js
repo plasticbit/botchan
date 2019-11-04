@@ -11,7 +11,8 @@ module.exports = {
         const guild = message.guild
         const channel = message.channel
         const channels = guild.channels
-        const filter = channels.filterArray(ch => ch.name === channel.name)
+        const filter = channels.filter(ch => ch.name === channel.name).size
+        // filterArray: 非推奨らしい
 
 
         if (filter.length >= 3) {
