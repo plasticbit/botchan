@@ -6,5 +6,5 @@ module.exports = {
     description: "",
 
     /** @param {Message} message */
-    Do: () => {}
+    Do: message => {}
 }
