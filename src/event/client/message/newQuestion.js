@@ -11,11 +11,10 @@ module.exports = {
         const guild = message.guild
         const channel = message.channel
         const channels = guild.channels
-        const filter = channels.filter(ch => ch.name === channel.name).size
-        // filterArray: 非推奨らしい
+        const filter = channels.filter(ch => ch.name === channel.name)
 
 
-        if (filter.length >= 3) {
+        if (filter.size >= 3) {
             message.reply("チャンネルが複数あります。\nこれ以上チャンネルを作ることはできません！", global.syntax)
         } else {
             const newChannel = await guild.createChannel(channel.name, { type: "text" })
