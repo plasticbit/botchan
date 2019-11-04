@@ -6,7 +6,7 @@ module.exports = {
     description: "create new channel",
 
     /** @param {Message} message */
-    async Do: message => {
+    Do: async message => {
 
         const guild = message.guild
         const channel = message.channel
@@ -20,6 +20,9 @@ module.exports = {
         } else {
             const newChannel = await guild.createChannel(channel.name, { type: "text" })
             await newChannel.setParent("393442427912060928")
+            
+            // LANG-CATEGORY: 640931602309971970
+            // TEST-CATEGORY: 393442427912060928
         }
     }
 }
