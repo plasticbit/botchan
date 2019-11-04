@@ -6,7 +6,7 @@ module.exports = {
     description: "create new channel",
 
     /** @param {Message} message */
-    Do: message => {
+    async Do: message => {
 
         const guild = message.guild
         const channel = message.channel
@@ -15,12 +15,11 @@ module.exports = {
 
         message.guild.c
 
-        if (filter.length > 3) {
-            channel.reply("チャンネルが複数あります。\nこれ以上チャンネルを作ることはできません！", global.syntax)
+        if (filter.length >= 3) {
+            message.reply("チャンネルが複数あります。\nこれ以上チャンネルを作ることはできません！", global.syntax)
         } else {
-            guild.createChannel(channel.name, {
-                type: "text"
-            }).then(m => m.setParent("393442427912060928"))
+            const newChannel = await guild.createChannel(channel.name, { type: "text" })
+            await newChannel.setParent("393442427912060928")
         }
     }
 }
