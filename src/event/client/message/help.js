@@ -1,11 +1,12 @@
+const list = require("./list")
+
 module.exports = {
     usage: "b;help",
     examples: "b;help [command]",
-    description: "このメッセージの表示",
+    description: "ヘルプの表示",
     Do: async message => {
-        const list = require("./list")
-        const msg = new Array()
 
+        const msg = new Array()
         const url = "https://github.com/BinaryDolphin29/botchan/"
         const client = message.client
         const ping = Math.floor(client.ping)
