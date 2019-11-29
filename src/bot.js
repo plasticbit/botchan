@@ -23,6 +23,8 @@ process.on("exit", async () => {
 }).on("SIGINT", async () => {
     await client.destroy()
     process.exit(0)
+}).on("SIGTERM", async () => {
+    await client.destroy()
 }).on("warning", warning => {
     console.log(`Warning (process): ${warning.stack}\n`)
 }).on("unhandledRejection", (reason, promise) => {
