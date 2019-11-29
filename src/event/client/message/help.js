@@ -3,7 +3,7 @@ module.exports = {
     examples: "b;help [command]",
     description: "ヘルプの表示",
     Do: async message => {
-
+        
         const list = require("./list")
 
         const msg = new Array()

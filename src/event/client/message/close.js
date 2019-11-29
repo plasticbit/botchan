@@ -1,9 +1,9 @@
 const { Message } = require("discord.js")
 
 module.exports = {
-    usage: "...",
-    examples: "...",
-    description: "delete channel",
+    usage: "b;close",
+    examples: "b;close",
+    description: "b;newQuestion で作成したチャンネルを削除します。",
 
     /** @param {Message} message */
     Do: message => {

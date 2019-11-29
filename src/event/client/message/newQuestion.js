@@ -1,9 +1,9 @@
 const { Message } = require("discord.js")
 
 module.exports = {
-    usage: "...",
-    examples: "...",
-    description: "create new channel",
+    usage: "b;newQuestion",
+    examples: "b;newQuestion",
+    description: "新しいチャンネルを作成します。",
 
     /** @param {Message} message */
     Do: async message => {
