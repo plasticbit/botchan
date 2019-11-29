@@ -11,8 +11,8 @@ module.exports = {
         const client = message.client
         const ping = Math.floor(client.ping)
 
+        console.log(list)
         for (const key in list) {
-            console.log(list[key])
             msg.push(`${key}: ${list[key].description}`)
         }
 
