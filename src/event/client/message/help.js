@@ -16,7 +16,14 @@ module.exports = {
         }
 
         message.channel.send(
-            `\`\`\`Prefix b;\n${msg.join("\n")}\n\nPing: ${ping}ms\`\`\`${url}`
+`\`\`\`
+Prefix b;
+${msg.join("\n")}
+
+Ping: ${ping}ms
+\`\`\`
+${url}
+`
         )
     }
 }
