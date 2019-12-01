@@ -27,6 +27,7 @@ module.exports = {
             code: true
         })
 
+        const mainMsg = msg.content
         let input = new Array()
         msg.awaitReactions(async (reaction, User) => {
             const ReactName = reaction.emoji.name
@@ -41,7 +42,7 @@ module.exports = {
 
             if (ReactName !== Object.keys(emojis)[5]) {
                 input.push(emojis[ReactName])
-                msg.edit(`${msg.content}\nいま => ${input.join("")}`)
+                msg.edit(`${mainMsg}\nいま => ${input.join("")}`)
             } else {
                 msg.edit(`\`input => ${input.join("")}\``)
                 msg.clearReactions()
