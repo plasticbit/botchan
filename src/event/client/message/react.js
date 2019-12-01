@@ -1,5 +1,5 @@
 const { Message } = require("discord.js")
-const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "☑"]
 
 module.exports = {
     usage: "",
@@ -25,8 +25,11 @@ module.exports = {
                 !emojis.includes(ReactName)
             ) return
 
+            if (ReactName === emojis[5]) {
+                msg.edit(`${ReactName}`)
+            }
 
-            msg.edit(`${ReactName}`)
+
         })
         // msg.await
 
