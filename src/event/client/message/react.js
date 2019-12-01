@@ -36,7 +36,7 @@ module.exports = {
 
 
             if (ReactName === Object.keys(emojis)[5]) {
-                msg.edit(`${input.join("")}`)
+                msg.edit(`\`input => ${input.join(" ")}\``)
                 msg.clearReactions()
             } else {
                 input.push(emojis[ReactName])
