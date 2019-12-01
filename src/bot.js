@@ -1,4 +1,4 @@
-const { Client } = require("discord.js")
+const { Client, Message } = require("discord.js")
 const client = new Client({
     messageCacheMaxSize: 500,
     messageCacheLifetime: 120,

@@ -1,12 +1,11 @@
 const Emoji = ["⭕", "❌"]
-const { Message } = require("discord.js")
 
 module.exports = {
     usage: "b;addRole\nb;addRole <number>,\nb;addRole <name>",
     examples: "b;addRole\nb;addRole 4\nb;addRole discord.js",
     description: "ユーザーへ役職を追加します。",
     
-    /** @param {Message} message */
+    /** @param {global.Message} message */
     Do: async message => {
         const map = new Map()
         const member = message.member

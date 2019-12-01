@@ -1,11 +1,9 @@
-const { Message } = require("discord.js")
-
 module.exports = {
     usage: "b;newQuestion",
     examples: "b;newQuestion",
     description: "新しいチャンネルを作成します。",
 
-    /** @param {Message} message */
+    /** @param {global.Message} message */
     Do: async message => {
 
         const guild = message.guild
