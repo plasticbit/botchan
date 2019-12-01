@@ -30,16 +30,16 @@ module.exports = {
             if (
                 User == message.client.user ||
                 User.id != message.author.id ||
-                !emojis.keys().includes(ReactName)
+                !Object.keys(emojis).includes(ReactName)
             ) return
 
 
 
-            if (ReactName === emojis.keys()[5]) {
+            if (ReactName === Object.keys(emojis)[5]) {
                 msg.edit(`${input.join(", ")}`)
                 msg.clearReactions()
             } else {
-                input.push(emojis.get(ReactName))
+                input.push(emojis[ReactName])
             }
 
 
