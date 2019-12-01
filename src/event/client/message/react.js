@@ -22,7 +22,7 @@ module.exports = {
         msg.awaitReactions(async (reaction, User) => {
             const ReactName = reaction.emoji.name
             console.log(ReactName)
-            console.log(msg.reactions.name)
+            console.log(msg.reactions.emoji.name)
             // if (
             //     User == message.client.user ||
             //     User.id != message.author.id ||
