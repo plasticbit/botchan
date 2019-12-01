@@ -1,12 +1,12 @@
 const { Message } = require("discord.js")
-const emojis = new Object([
-    ["1️⃣", "1"],
-    ["2️⃣", "2"],
-    ["3️⃣", "3"],
-    ["4️⃣", "4"],
-    ["5️⃣", "5"],
-    ["☑", "ok"]
-])
+const emojis = {
+    "1️⃣": "1",
+    "2️⃣": "2",
+    "3️⃣": "3",
+    "4️⃣": "4",
+    "5️⃣": "5",
+    "☑": "ok"
+}
 
 module.exports = {
     usage: "",
