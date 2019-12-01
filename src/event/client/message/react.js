@@ -1,5 +1,5 @@
 const { Message } = require("discord.js")
-const emojis = new Map([
+const emojis = new Object([
     ["1️⃣", "1"],
     ["2️⃣", "2"],
     ["3️⃣", "3"],
