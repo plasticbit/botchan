@@ -19,8 +19,8 @@ module.exports = {
             code: true
         })
 
-        for (let i = 0; i < emojis.length; i++) {
-            await msg.react(emojis[i])
+        for (const emoji in emojis) {
+            await msg.react(emoji)
         }
 
         let input = new Array()
@@ -36,7 +36,7 @@ module.exports = {
 
 
             if (ReactName === Object.keys(emojis)[5]) {
-                msg.edit(`${input.join(", ")}`)
+                msg.edit(`${input.join("")}`)
                 msg.clearReactions()
             } else {
                 input.push(emojis[ReactName])
