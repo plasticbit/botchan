@@ -23,7 +23,7 @@ module.exports = {
             await msg.react(emoji)
         }
 
-        msg.edit("R E A C T   T E S T", {
+        msg.edit("R E A D Y !!", {
             code: true
         })
 
@@ -39,15 +39,15 @@ module.exports = {
 
 
 
-            if (ReactName === Object.keys(emojis)[5]) {
+            if (ReactName !== Object.keys(emojis)[5]) {
+                input.push(emojis[ReactName])
+            } else {
                 msg.edit(`\`input => ${input.join(" ")}\``)
                 msg.clearReactions()
-            } else {
-                input.push(emojis[ReactName])
             }
 
 
-        })
+        }, { timeout: 30000 })
         // msg.await
 
     }
