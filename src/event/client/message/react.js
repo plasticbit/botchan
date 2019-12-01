@@ -1,5 +1,12 @@
 const { Message } = require("discord.js")
-const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "☑"]
+const emojis = new Map(
+    ["1️⃣", "1"],
+    ["2️⃣", "2"],
+    ["3️⃣", "3"],
+    ["4️⃣", "4"],
+    ["5️⃣", "5"],
+    ["☑", "ok"]
+)
 
 module.exports = {
     usage: "",
@@ -23,16 +30,16 @@ module.exports = {
             if (
                 User == message.client.user ||
                 User.id != message.author.id ||
-                !emojis.includes(ReactName)
+                !emojis.keys().includes(ReactName)
             ) return
 
             
 
-            if (ReactName === emojis[5]) {
+            if (ReactName === emojis.keys()[5]) {
                 msg.edit(`${input.join(", ")}`)
                 msg.clearReactions()
             } else {
-                input.push(ReactName)
+                input.push(emojis.get(ReactName))
             }
 
 
