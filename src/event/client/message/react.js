@@ -1,4 +1,5 @@
 const { Message } = require("discord.js")
+const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
 
 module.exports = {
     usage: "",
@@ -11,25 +12,24 @@ module.exports = {
             code: true
         })
 
-
-        await msg.react("1️⃣")
-        await msg.react("2️⃣")
-        await msg.react("3️⃣")
-        await msg.react("4️⃣")
-        await msg.react("5️⃣")
-
+        for (let i = 0; i < emojis.length; i++) {
+            await msg.react(emojis[i])
+        }
 
         msg.awaitReactions(async (reaction, User) => {
             const ReactName = reaction.emoji.name
-            console.log(ReactName)
-            console.log(msg.reactions.map(v => v.emoji.name).includes(ReactName))
-            // if (
-            //     User == message.client.user ||
-            //     User.id != message.author.id ||
-            //     !Emoji.includes(ReactName)
-            // ) return
+
+            if (
+                User == message.client.user ||
+                User.id != message.author.id ||
+                !emojis.includes(ReactName)
+            ) return
+
+
+            msg.edit(`${msg.content}\n\n${ReactName}`)
         })
         // msg.await
 
     }
 }
+new Array().includes()
