@@ -26,10 +26,9 @@ module.exports = {
             ) return
 
 
-            msg.edit(`${msg.content}\n\n${ReactName}`)
+            msg.edit(`${ReactName}`)
         })
         // msg.await
 
     }
 }
-new Array().includes()
