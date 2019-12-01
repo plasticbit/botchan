@@ -16,6 +16,7 @@ module.exports = {
             await msg.react(emojis[i])
         }
 
+        let input = new Array()
         msg.awaitReactions(async (reaction, User) => {
             const ReactName = reaction.emoji.name
 
@@ -25,8 +26,12 @@ module.exports = {
                 !emojis.includes(ReactName)
             ) return
 
+            
+
             if (ReactName === emojis[5]) {
-                msg.edit(`${ReactName}`)
+                msg.edit(`${input.join(", ")}`)
+            } else {
+                input.push(ReactName)
             }
 
 
