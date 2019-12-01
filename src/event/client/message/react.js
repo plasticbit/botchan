@@ -30,6 +30,7 @@ module.exports = {
 
             if (ReactName === emojis[5]) {
                 msg.edit(`${input.join(", ")}`)
+                msg.clearReactions()
             } else {
                 input.push(ReactName)
             }
