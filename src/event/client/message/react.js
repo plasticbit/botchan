@@ -15,13 +15,17 @@ module.exports = {
 
     /** @param {Message} message */
     Do: async message => {
-        const msg = await message.channel.send("R E A C T  T E S T", {
+        const msg = await message.channel.send("ちょっとまて", {
             code: true
         })
 
         for (const emoji in emojis) {
             await msg.react(emoji)
         }
+
+        msg.edit("R E A C T   T E S T", {
+            code: true
+        })
 
         let input = new Array()
         msg.awaitReactions(async (reaction, User) => {
