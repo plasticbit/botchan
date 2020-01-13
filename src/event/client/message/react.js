@@ -11,7 +11,7 @@ const emojis = {
 module.exports = {
     usage: "",
     examples: "",
-    description: "",
+    description: "リアクションのテスト(得に意味はない)",
 
     /** @param {Message} message */
     Do: async message => {
