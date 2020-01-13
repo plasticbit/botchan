@@ -1,7 +1,11 @@
+const { Message } = require("discord.js")
+
 module.exports = {
     usage: "b;help",
     examples: "b;help [command]",
     description: "ヘルプの表示",
+
+ /     /** @param {Message} message **/
     Do: async message => {
         
         const list = require("./list")
@@ -15,13 +19,12 @@ module.exports = {
             msgs.push(`${key}: ${list[key].description}`)
         }
 
-        client._pong(Date.now())
         message.channel.send(
 `\`\`\`
 Prefix b;
 ${msgs.join("\n")}
 
-Ping: ${ping}ms
+Ping: ${ping}ms - ${Math.trunc((Date.now() - message.guild.createdTimestamp) / 86400000)}日目
 \`\`\`
 ${url}
 `

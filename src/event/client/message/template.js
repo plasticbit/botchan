@@ -1,8 +1,10 @@
+const { Message } = require("discord.js")
+
 module.exports = {
     usage: "",
     examples: "",
     description: "",
 
-    /** @param {global.Message} message **/
+    /** @param {Message} message **/
     Do: message => {}
 }
