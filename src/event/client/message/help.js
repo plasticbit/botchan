@@ -1,11 +1,10 @@
-const { Message } = require("discord.js")
+// const { Message } = require("discord.js")
 
 module.exports = {
     usage: "b;help",
     examples: "b;help [command]",
     description: "ヘルプの表示",
 
- /     /** @param {Message} message **/
     Do: async message => {
         
         const list = require("./list")
