@@ -6,19 +6,20 @@ module.exports = {
         
         const list = require("./list")
 
-        const msg = new Array()
+        const msgs = new Array()
         const url = "https://github.com/BinaryDolphin29/botchan/"
         const client = message.client
         const ping = Math.floor(client.ping)
 
         for (const key in list) {
-            msg.push(`${key}: ${list[key].description}`)
+            msgs.push(`${key}: ${list[key].description}`)
         }
 
+        client._pong(Date.now())
         message.channel.send(
 `\`\`\`
 Prefix b;
-${msg.join("\n")}
+${msgs.join("\n")}
 
 Ping: ${ping}ms
 \`\`\`
