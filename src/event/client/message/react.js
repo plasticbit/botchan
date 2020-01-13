@@ -15,7 +15,7 @@ module.exports = {
 
     /** @param {Message} message */
     Do: async message => {
-        const msg = await message.channel.send("ちょっとまて", global.syntax)
+        const msg = await message.channel.send("ちょっと まって", global.syntax)
 
         for (const emoji in emojis) {
             await msg.react(emoji)
@@ -37,7 +37,7 @@ module.exports = {
                 input.push(emojis[ReactName])
                 msg.edit(`いま => ${input.join("")}`, global.syntax)
             } else {
-                msg.edit(`input => ${input.join("")}`, global.syntax)
+                msg.edit(`けっか => ${input.join("")}`, global.syntax)
                 msg.clearReactions()
             }
 
@@ -47,11 +47,15 @@ module.exports = {
         msg.edit("R E A D Y !!", global.syntax)
     }
 }
-/*
-https://discord.js.org/#/docs/main/stable/class/Message?scrollTo=createReactionCollector
+/* https://discord.js.org/#/docs/main/stable/class/Message?scrollTo=createReactionCollector
 
-const filter = (reaction, user) => reaction.emoji.name === '👌' && user.id === 'someID'
-const collector = message.createReactionCollector(filter, { time: 15000 });
+const collector = message.createReactionCollector((reaction, user) => 
+    reaction.emoji.name === '👌' &&
+    user.id === 'someID', {
+        time: 15000
+    }
+);
+
 collector.on('collect', r => console.log(`Collected ${r.emoji.name}`));
 collector.on('end', collected => console.log(`Collected ${collected.size} items`));
 */

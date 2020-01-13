@@ -16,7 +16,7 @@ module.exports = message => {
         for (const key in list) {
             if (key.toLowerCase() === command.toLowerCase()) {
                 list[key].Do(message)
-                return
+                break
             }
         }
     }
