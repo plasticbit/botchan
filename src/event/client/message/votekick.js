@@ -13,7 +13,7 @@ let progress = false
 module.exports = {
     usage: "b;votekick @MENTION REASON",
     examples: "b;votekick @MENTION REASON",
-    description: "迷惑なユーザーをサーバーからkickするコマンドです。",
+    description: "迷惑なユーザーをサーバーからkickします。",
 
     /** @param {Message} message **/
     Do: async message => {
@@ -37,7 +37,7 @@ module.exports = {
                 return
             }
 
-            // オフライン, アイドル, botを除くギルドユーザーの10%, 5人に満たないサーバーは2人に設定
+            // offline, idle, botを除くギルドユーザーの10%, 5人に満たないサーバーは2人に設定
             const voters = Math.round(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size * 0.1) || 2
             const voteMessage = await channel.send("@here", {
                 embed: {
