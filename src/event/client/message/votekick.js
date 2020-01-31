@@ -15,34 +15,34 @@ module.exports = {
             reason = message.args.slice(1).join(" ")
         }
         
-        console.log(mentions.size !== 1, !USERS_PATTERN.test(message.args[0]))
+        console.log(mentions.size !== 1 || !USERS_PATTERN.test(message.args[0]))
 
-        if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
-            channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
-        } else {
-            const member = mentions.first()
-            const voteMessage = channel.send({
-                embed: {
-                    color: 0xFF0000,
-                    title: "このユーザーをキックしますか？",
-                    fields: [{
-                        name: "対象ユーザー",
-                        value: member.displayName,
-                        // inline: true
-                    },
-                    {
-                        name: "理由",
-                        value: reason,
-                        // inline: true
-                    }],
-                    thumbnail: {
-                        url: member.displayAvatarURL
-                    },
+        // if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
+        //     channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
+        // } else {
+        //     const member = mentions.first()
+        //     const voteMessage = channel.send({
+        //         embed: {
+        //             color: 0xFF0000,
+        //             title: "このユーザーをキックしますか？",
+        //             fields: [{
+        //                 name: "対象ユーザー",
+        //                 value: member.displayName,
+        //                 // inline: true
+        //             },
+        //             {
+        //                 name: "理由",
+        //                 value: reason,
+        //                 // inline: true
+        //             }],
+        //             thumbnail: {
+        //                 url: member.displayAvatarURL
+        //             },
 
-                    timestamp: new Date()
-                }
-            })
-        }
+        //             timestamp: new Date()
+        //         }
+        //     })
+        // }
     }
 }
 
