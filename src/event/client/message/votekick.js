@@ -17,7 +17,7 @@ module.exports = {
             const member = mentions.first()
             const voteMessage = channel.send({
                 embed: {
-                    color: 0xFF0000,
+                    color: 16711680,
                     author: {
                         name: message.member.displayName,
                         icon_url: message.author.displayAvatarURL
