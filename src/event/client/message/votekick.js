@@ -1,5 +1,5 @@
-const { Message, MessageMentions: { USERS_PATTERN } } = require("discord.js")
-const voteEmojis = ["🈶", "🈚"]
+const { Message, ReactionCollector, MessageMentions: { USERS_PATTERN } } = require("discord.js")
+const voteEmojis = ["⭕", "❌"]
 
 module.exports = {
     usage: "b;votekick @MENTION REASON",
@@ -10,6 +10,8 @@ module.exports = {
     Do: async message => {
         // RegExp.lastIndex 回避のため
         const PATTERN = new RegExp(USERS_PATTERN, "")
+
+        const voterList = new Set()
         const mentions = message.mentions.members
         const channel = message.channel
         let reason = "理由がありません！！"
@@ -24,10 +26,12 @@ module.exports = {
                 return
             }
 
+            const voters = Math.round(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size * 0.1)
             const voteMessage = await channel.send({
                 embed: {
                     color: 0xFF0000,
                     title: "このユーザーを***kick***しますか？",
+                    description: `この投票は30分間有効で、${voters}人の投票が必要です。`,
                     fields: [{
                         name: "対象ユーザー",
                         value: member.displayName,
@@ -46,9 +50,14 @@ module.exports = {
             await voteMessage.react(voteEmojis[0])
             await voteMessage.react(voteEmojis[1])
 
-            const collector = voteMessage.createReactionCollector((reaction, user) => voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !user.bot, { time: 15000 })
+            /** @type {ReactionCollector} */
+            const collector = voteMessage.createReactionCollector((reaction, user) => {
+                voterList.Set(user.id)
+                return voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !voterList.has(user.id) && !user.bot, { time: 1800000 }
+            })
+
             collector.on("collect", r => console.log(`Collected ${r.emoji.name}`))
-            collector.on("end", collected => console.log(`Collected ${collected.size} items`))
+            collector.on("end", collected => console.log(`Collected ${collected} items`))
         }
     }
 }
@@ -57,3 +66,6 @@ module.exports = {
 // index:        0       1
 
 // 投票メッセージをピン留め
+// 同じ人が絵文字を2つ押した時
+
+new Set().add(["ID", true])
