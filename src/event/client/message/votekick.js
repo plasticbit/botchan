@@ -53,7 +53,7 @@ module.exports = {
             /** @type {ReactionCollector} */
             const collector = voteMessage.createReactionCollector((reaction, user) => {
                 voterList.Set(user.id)
-                return voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !voterList.has(user.id) && !user.bot, { time: 1800000 }
+                return voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !voterList.has(user.id) && !user.bot, { time: 15000 }
             })
 
             collector.on("collect", r => console.log(`Collected ${r.emoji.name}`))
@@ -69,3 +69,4 @@ module.exports = {
 // 同じ人が絵文字を2つ押した時
 
 new Set().add(["ID", true])
+// { time: 1800000 }
