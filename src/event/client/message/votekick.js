@@ -52,7 +52,7 @@ module.exports = {
 
             /** @type {ReactionCollector} */
             const collector = voteMessage.createReactionCollector((reaction, user) => {
-                voterList.Set(user.id)
+                voterList.add(user.id)
                 return voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !voterList.has(user.id) && !user.bot, { time: 15000 }
             })
 
