@@ -9,8 +9,9 @@ module.exports = {
     Do: message => {
         const mentions = message.mentions.members
         const channel = message.channel
-        const reason = message.args[2]
+        let reason = "理由がありません！！"
 
+        if (message.args.length >= 1) reason = message.args.slice(1).join(" ")
         if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
         } else {
@@ -21,7 +22,7 @@ module.exports = {
                     title: "このユーザーをキックしますか？",
                     fields: [{
                         name: "対象ユーザー",
-                        value: member.displayName || "N/A",
+                        value: member.displayName,
                         inline: true
                     },
                     {
