@@ -26,7 +26,8 @@ module.exports = {
                 return
             }
 
-            const voters = Math.round(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size * 0.1)
+            // オフライン, アイドルを除くギルドユーザーの10%, 5人に満たないサーバーは2人に設定
+            const voters = Math.round(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size * 0.1) || 2
             const voteMessage = await channel.send({
                 embed: {
                     color: 0xFF0000,
@@ -52,12 +53,14 @@ module.exports = {
 
             /** @type {ReactionCollector} */
             const collector = voteMessage.createReactionCollector((reaction, user) => {
+                const filter = voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !voterList.has(user.id) && !user.bot
                 voterList.add(user.id)
-                return voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !voterList.has(user.id) && !user.bot, { time: 15000 }
-            })
+
+                return filter
+            }, { time: 15000 })
 
             collector.on("collect", r => console.log(`Collected ${r.emoji.name}`))
-            collector.on("end", collected => console.log(`Collected ${collected} items`))
+            collector.on("end", collected => console.log(`Collected ${collected.size} items`))
         }
     }
 }
@@ -68,5 +71,5 @@ module.exports = {
 // 投票メッセージをピン留め
 // 同じ人が絵文字を2つ押した時
 
-new Set().add(["ID", true])
+// new Set().add(["ID", true])
 // { time: 1800000 }
