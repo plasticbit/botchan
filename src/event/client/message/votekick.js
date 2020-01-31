@@ -24,19 +24,17 @@ module.exports = {
                 return
             }
 
-            const voteMessage = channel.send({
+            const voteMessage = await channel.send({
                 embed: {
                     color: 0xFF0000,
                     title: "このユーザーを**kick**しますか？",
                     fields: [{
                         name: "対象ユーザー",
                         value: member.displayName,
-                        inline: true
                     },
                     {
                         name: "理由",
                         value: reason,
-                        inline: true
                     }],
                     thumbnail: {
                         url: member.user.displayAvatarURL
@@ -48,7 +46,7 @@ module.exports = {
             await voteMessage.react(voteMessage[0])
             await voteMessage.react(voteMessage[1])
 
-            const collector = message.createReactionCollector((reaction, user) => voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !user.bot, { time: 15000 })
+            const collector = voteEmojis.createReactionCollector((reaction, user) => voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !user.bot, { time: 15000 })
             collector.on("collect", r => console.log(`Collected ${r.emoji.name}`))
             collector.on("end", collected => console.log(`Collected ${collected.size} items`))
         }
