@@ -11,7 +11,10 @@ module.exports = {
         const channel = message.channel
         let reason = "理由がありません！！"
 
-        if (message.args.length >= 1) reason = message.args.slice(1).join(" ")
+        if (message.args.length >= 1) {
+            reason = message.args.slice(1).join(" ")
+        }
+        
         if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
             console.log(message.args, mentions.size, !USERS_PATTERN.test(message.args[0]))// いまここ！！！！！！！！！！！！！！！！！！！！！！！
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
@@ -24,12 +27,12 @@ module.exports = {
                     fields: [{
                         name: "対象ユーザー",
                         value: member.displayName,
-                        inline: true
+                        // inline: true
                     },
                     {
                         name: "理由",
                         value: reason,
-                        inline: true
+                        // inline: true
                     }],
                     thumbnail: {
                         url: member.displayAvatarURL
