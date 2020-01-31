@@ -31,7 +31,7 @@ module.exports = {
                 return
             }
 
-            // オフライン, アイドルを除くギルドユーザーの10%, 5人に満たないサーバーは2人に設定
+            // オフライン, アイドル, botを除くギルドユーザーの10%, 5人に満たないサーバーは2人に設定
             const voters = Math.round(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size * 0.1) || 2
             const voteMessage = await channel.send("@here", {
                 embed: {
