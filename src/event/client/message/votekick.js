@@ -7,7 +7,7 @@
 
 
 const { Message, ReactionCollector, MessageMentions: { USERS_PATTERN } } = require("discord.js")
-const voteEmojis = ["🆗", "🗑"]
+const voteEmojis = ["🆗", "🆖"]
 let progress = false
 
 module.exports = {
