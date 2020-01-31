@@ -11,11 +11,14 @@ module.exports = {
         const channel = message.channel
         let reason = "理由がありません！！"
 
+
+        const bool = USERS_PATTERN.test(message.args[0])
+
         if (message.args.length >= 1) {
             reason = message.args.slice(1).join(" ")
         }
         
-        console.log(mentions.size !== 1 || !(USERS_PATTERN.test(message.args[0])), message.args)
+        console.log(mentions.size !== 1 || !bool, message.args)
         console.log(message.args[0])
 
         // if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
