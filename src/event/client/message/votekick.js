@@ -15,8 +15,9 @@ module.exports = {
             reason = message.args.slice(1).join(" ")
         }
         
-        console.log(message.args, mentions.size, mentions.size !== 1, !USERS_PATTERN.test(message.args[0]))// いまここ！！！！！！！！！！！！！！！！！！！！！！！
-        if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
+        console.log(message.args, mentions.size, mentions.size !== 1, !USERS_PATTERN.test(message.args[0]))
+
+        if (mentions.size !== 1 || !(USERS_PATTERN.test(message.args[0]))) {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
         } else {
             const member = mentions.first()
