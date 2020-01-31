@@ -76,6 +76,7 @@ module.exports = {
 
             let count = 0
             collector.on("collect", async r => {
+                console.log(message.member.hasPermission("ADMINISTRATOR"), r.emoji.name === voteEmojis[1])
                 if (r.emoji.name === voteEmojis[1] && message.member.hasPermission("ADMINISTRATOR")) {
                     collector.stop("cancel")
                     return
@@ -97,6 +98,7 @@ module.exports = {
                 progress = false
                 if (_reason === "cancel") return voteMessage.delete()
                 if (_reason === "vote") return
+
                 channel.send("投票人数が一定数を超えなかったため、kickできませんでした。", global.syntax)
                 voteMessage.clearReactions()
                 voteMessage.unpin()
