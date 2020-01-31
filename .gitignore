@@ -1,4 +1,4 @@
 node_modules
 ./src/config.js
 .vscode
-./rule.md
+rule.md
