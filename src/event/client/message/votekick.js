@@ -57,14 +57,14 @@ module.exports = {
                 voterList.add(user.id)
 
                 return filter
-            }, { time: 15000 })
+            }, { time: 5000 })
 
             collector.on("end", async collected => {
                 console.log(`Collected ${collected.size} items`)
 
                 if (true                          ||collected.size <= voters) {
-                    const yes = collected.first()
-                    const no = collected.last()
+                    const yes = collected.get(voteEmojis[0])
+                    const no = collected.get(voteEmojis[1])
 
                     console.log(yes, no)
                     // try {
