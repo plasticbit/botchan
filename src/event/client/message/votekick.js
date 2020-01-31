@@ -15,7 +15,7 @@ module.exports = {
             reason = message.args.slice(1).join(" ")
         }
         
-        console.log(mentions.size !== 1 || !USERS_PATTERN.test(message.args[0]), message.args)
+        console.log(mentions.size !== 1 || !(USERS_PATTERN.test(message.args[0])), message.args)
         console.log(message.args[0])
 
         // if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
