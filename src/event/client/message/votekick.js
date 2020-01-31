@@ -28,11 +28,11 @@ module.exports = {
 
             // オフライン, アイドルを除くギルドユーザーの10%, 5人に満たないサーバーは2人に設定
             const voters = Math.round(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size * 0.1) || 2
-            const voteMessage = await channel.send({
+            const voteMessage = await channel.send("@here", {
                 embed: {
                     color: 0xFF0000,
                     title: "このユーザーを***kick***しますか？",
-                    description: `この投票は30分間有効で、${voters}人の投票が必要です。`,
+                    description: `この投票は${voters*2}分間有効で、${voters}人の投票が必要です。\nなお、一度投票すると変更することは出来ません。`,
                     fields: [{
                         name: "対象ユーザー",
                         value: member.displayName,
@@ -45,7 +45,7 @@ module.exports = {
                         url: member.user.displayAvatarURL
                     },
                     timestamp: new Date()
-                }
+                },
             })
 
             await voteMessage.react(voteEmojis[0])
@@ -53,14 +53,28 @@ module.exports = {
 
             /** @type {ReactionCollector} */
             const collector = voteMessage.createReactionCollector((reaction, user) => {
-                const filter = voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !voterList.has(user.id) && !user.bot
+                const filter = voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && user.id !== member.user.id && !voterList.has(user.id) && !user.bot
                 voterList.add(user.id)
 
                 return filter
-            }, { time: 15000 })
+            }, { time: (1000 * 60) * (voters * 2) })
 
-            collector.on("collect", r => console.log(`Collected ${r.emoji.name}`))
-            collector.on("end", collected => console.log(`Collected ${collected.size} items`))
+            // collector.on("collect", r => console.log(`Collected ${r.emoji.name}`))
+            collector.on("end", async collected => {
+                console.log(`Collected ${collected.size} items`)
+
+                if (collected.size <= voters) {
+                    console.log(collected)
+                    // try {
+                    //     // await message.guild.members.get(member.id).kick(reason)
+                    //     channel.send("kickしました。", global.syntax)
+                    // } catch (e) {
+                    //     channel.send(`kickできませんでした。\n\n${e.message}`, global.syntax)
+                    // }
+                } else {
+                    channel.send("投票人数が一定数を超えなかったため、kickできませんでした。", global.syntax)
+                }
+            })
         }
     }
 }
