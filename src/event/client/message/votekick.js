@@ -14,10 +14,10 @@ module.exports = {
         const vList = new Set()
         const mentions = message.mentions.members
         const channel = message.channel
-        let reason = "理由がありません！！"
+        let reason = ""
 
         if (message.args.length >= 1) reason = message.args.slice(1).join(" ")
-        if (mentions.size !== 1 || !PATTERN.test(message.args[0])) {
+        if (mentions.size !== 1 || !PATTERN.test(message.args[0]) || !reason) {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
         } else {
             const member = mentions.first()
@@ -66,7 +66,7 @@ module.exports = {
                 count++
                 if (voters,1 <= count) {
                     try {
-                        collector.stop()
+                        collector.stop("vote")
                         // await message.guild.members.get(member.id).kick(reason)
                         channel.send("kickしました。", global.syntax)
                     } catch (e) {
@@ -75,7 +75,8 @@ module.exports = {
                 }
             })
             
-            collector.on("end", async collected => {
+            collector.on("end", async (collected, _reason) => {
+                if (_reason === "vote") return
                 channel.send("投票人数が一定数を超えなかったため、kickできませんでした。", global.syntax)
             })
         }
