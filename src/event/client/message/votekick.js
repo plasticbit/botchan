@@ -35,7 +35,7 @@ module.exports = {
                     description: `この投票は${voters*2}分間有効で、${voters}人の投票が必要です。\nなお、一度投票すると変更することは出来ません。`,
                     fields: [{
                         name: "対象ユーザー",
-                        value: member.displayName,
+                        value: `**${member.displayName}**#${member.user.discriminator}`,
                     },
                     {
                         name: "理由",
@@ -63,8 +63,8 @@ module.exports = {
                 console.log(`Collected ${collected.size} items`)
 
                 if (true                          ||collected.size <= voters) {
-                    const yes = collected.first().count - 1
-                    const no = collected.last().count - 1
+                    const yes = collected.first()
+                    const no = collected.last()
 
                     console.log(yes, no)
                     // try {
