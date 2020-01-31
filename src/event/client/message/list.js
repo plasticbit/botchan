@@ -5,5 +5,5 @@ module.exports = {
     newQuestion: require("./newQuestion"),
     close: require("./close"),
     react: require("./react"),
-    votekick: require("votekick")
+    votekick: require("./votekick")
 }
