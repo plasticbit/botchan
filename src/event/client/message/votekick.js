@@ -18,6 +18,8 @@ module.exports = {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
         } else {
             const member = mentions.first()
+
+            console.log(member.displayAvatarURL)
             const voteMessage = channel.send({
                 embed: {
                     color: 0xFF0000,
