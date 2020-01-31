@@ -19,7 +19,7 @@ module.exports = {
                 embed: {
                     color: 0xFF0000,
                     title: "このユーザーをキックしますか？",
-                    field: [{
+                    fields: [{
                         name: "対象ユーザー",
                         value: member.displayName,
                         inline: true
