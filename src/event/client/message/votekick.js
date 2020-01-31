@@ -1,10 +1,13 @@
 /*  条件
       ・ 一定時間内に一定数のyes投票でkick
+    
+    TODO
+      ・ 管理者が解除できる
 */
 
 
 const { Message, ReactionCollector, MessageMentions: { USERS_PATTERN } } = require("discord.js")
-const voteEmojis = "🆗"
+const voteEmojis = ["🆗", "🗑"]
 let progress = false
 
 module.exports = {
@@ -60,12 +63,12 @@ module.exports = {
             })
 
             await voteMessage.pin()
-            await voteMessage.react(voteEmojis)
+            await voteMessage.react(voteEmojis[0])
             progress = true
 
             /** @type {ReactionCollector} */
             const collector = voteMessage.createReactionCollector((reaction, user) => {
-                const filter = voteEmojis　=== reaction.emoji.name && user.id !== member.user.id && !vList.has(user.id) && !user.bot
+                const filter = voteEmojis.includes(reaction.emoji.name) && user.id !== member.user.id && !vList.has(user.id) && !user.bot
                 if (user.id !== message.client.user.id) vList.add(user.id)
 
                 return filter
@@ -73,6 +76,11 @@ module.exports = {
 
             let count = 0
             collector.on("collect", async r => {
+                if (r.emoji.name === voteEmojis[1] && message.member.hasPermission("ADMINISTRATOR")) {
+                    collector.stop("cancel")
+                    return
+                }
+
                 count++
                 if (voters <= count) {
                     try {
@@ -87,6 +95,7 @@ module.exports = {
             
             collector.on("end", async (_, _reason) => {
                 progress = false
+                if (_reason === "cancel")
                 if (_reason === "vote") return
                 channel.send("投票人数が一定数を超えなかったため、kickできませんでした。", global.syntax)
                 voteMessage.clearReactions()
