@@ -18,21 +18,24 @@ module.exports = {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
         } else {
             const member = mentions.first()
+            if (!member.bannable) {
+                channel.send("このユーザーはBANできません・・・", global.syntax)
+                return
+            }
 
-            console.log(member.displayAvatarURL)
             const voteMessage = channel.send({
                 embed: {
                     color: 0xFF0000,
                     title: "このユーザーをキックしますか？",
                     fields: [{
                         name: "対象ユーザー",
-                        value: member.displayName,
-                        // inline: true
+                        value: `${member.displayName}#${member.user.discriminator}`,
+                        inline: true
                     },
                     {
                         name: "理由",
                         value: reason,
-                        // inline: true
+                        inline: true
                     }],
                     thumbnail: {
                         url: member.user.displayAvatarURL
