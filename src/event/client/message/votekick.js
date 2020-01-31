@@ -21,7 +21,7 @@ module.exports = {
                     title: "このユーザーをキックしますか？",
                     fields: [{
                         name: "対象ユーザー",
-                        value: member.displayName,
+                        value: member.displayName || "N/A",
                         inline: true
                     },
                     {
