@@ -1,12 +1,13 @@
 const { Message, MessageMentions: { USERS_PATTERN } } = require("discord.js")
+const voteEmojis = ["🈶", "🈚"]
 
 module.exports = {
     usage: "b;votekick @MENTION REASON",
     examples: "b;votekick @MENTION REASON",
-    description: "迷惑なユーザーをサーバーからキックするコマンドです。",
+    description: "迷惑なユーザーをサーバーからkickするコマンドです。",
 
     /** @param {Message} message **/
-    Do: message => {
+    Do: async message => {
         // RegExp.lastIndex 回避のため
         const PATTERN = new RegExp(USERS_PATTERN, "")
         const mentions = message.mentions.members
@@ -18,18 +19,18 @@ module.exports = {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
         } else {
             const member = mentions.first()
-            if (!member.bannable) {
-                channel.send("このユーザーはBANできません・・・", global.syntax)
+            if (!member.kickable) {
+                channel.send("このユーザーはkickできません・・・", global.syntax)
                 return
             }
 
             const voteMessage = channel.send({
                 embed: {
                     color: 0xFF0000,
-                    title: "このユーザーをキックしますか？",
+                    title: "このユーザーを**kick**しますか？",
                     fields: [{
                         name: "対象ユーザー",
-                        value: `${member.displayName}#${member.user.discriminator}`,
+                        value: member.displayName,
                         inline: true
                     },
                     {
@@ -43,9 +44,18 @@ module.exports = {
                     timestamp: new Date()
                 }
             })
+
+            await voteMessage.react(voteMessage[0])
+            await voteMessage.react(voteMessage[1])
+
+            const collector = message.createReactionCollector((reaction, user) => voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && !user.bot, { time: 15000 })
+            collector.on("collect", r => console.log(`Collected ${r.emoji.name}`))
+            collector.on("end", collected => console.log(`Collected ${collected.size} items`))
         }
     }
 }
 
 // b;votekick @MENTION REASON
 // index:        0       1
+
+// 投票メッセージをピン留め
