@@ -1,4 +1,4 @@
-const { Message, MessageMentions: { USERS_PATTERN } } = require("discord.js")
+const { Message, MessageMentions } = require("discord.js")
 
 module.exports = {
     usage: "b;votekick @MENTION REASON",
@@ -7,45 +7,38 @@ module.exports = {
 
     /** @param {Message} message **/
     Do: message => {
+        // RegExp.lastIndex 回避のため
+        const { USERS_PATTERN } = MessageMentions
         const mentions = message.mentions.members
         const channel = message.channel
         let reason = "理由がありません！！"
 
+        if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
+            channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
+        } else {
+            const member = mentions.first()
+            const voteMessage = channel.send({
+                embed: {
+                    color: 0xFF0000,
+                    title: "このユーザーをキックしますか？",
+                    fields: [{
+                        name: "対象ユーザー",
+                        value: member.displayName,
+                        // inline: true
+                    },
+                    {
+                        name: "理由",
+                        value: reason,
+                        // inline: true
+                    }],
+                    thumbnail: {
+                        url: member.displayAvatarURL
+                    },
 
-        const bool = USERS_PATTERN.test(message.args[0])
-
-        if (message.args.length >= 1) {
-            reason = message.args.slice(1).join(" ")
+                    timestamp: new Date()
+                }
+            })
         }
-        
-        console.log(!bool, message.args, USERS_PATTERN.lastIndex)
-
-        // if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
-        //     channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
-        // } else {
-        //     const member = mentions.first()
-        //     const voteMessage = channel.send({
-        //         embed: {
-        //             color: 0xFF0000,
-        //             title: "このユーザーをキックしますか？",
-        //             fields: [{
-        //                 name: "対象ユーザー",
-        //                 value: member.displayName,
-        //                 // inline: true
-        //             },
-        //             {
-        //                 name: "理由",
-        //                 value: reason,
-        //                 // inline: true
-        //             }],
-        //             thumbnail: {
-        //                 url: member.displayAvatarURL
-        //             },
-
-        //             timestamp: new Date()
-        //         }
-        //     })
-        // }
     }
 }
 
