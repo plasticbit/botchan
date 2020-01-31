@@ -1,4 +1,4 @@
-const { Message, MessageMentions } = require("discord.js")
+const { Message, MessageMentions: { USERS_PATTERN } } = require("discord.js")
 
 module.exports = {
     usage: "b;votekick @MENTION REASON",
@@ -8,12 +8,12 @@ module.exports = {
     /** @param {Message} message **/
     Do: message => {
         // RegExp.lastIndex 回避のため
-        const { USERS_PATTERN } = MessageMentions
+        const PATTERN = new RegExp(USERS_PATTERN, "")
         const mentions = message.mentions.members
         const channel = message.channel
         let reason = "理由がありません！！"
 
-        if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
+        if (mentions.size !== 1 || !PATTERN.test(message.args[0])) {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
         } else {
             const member = mentions.first()
