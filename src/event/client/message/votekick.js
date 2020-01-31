@@ -95,7 +95,7 @@ module.exports = {
             
             collector.on("end", async (_, _reason) => {
                 progress = false
-                if (_reason === "cancel")
+                if (_reason === "cancel") return voteMessage.delete()
                 if (_reason === "vote") return
                 channel.send("投票人数が一定数を超えなかったため、kickできませんでした。", global.syntax)
                 voteMessage.clearReactions()
