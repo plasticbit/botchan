@@ -1,3 +1,8 @@
+/*  条件
+      ・ 一定時間内に一定数のyes投票でkick
+*/
+
+
 const { Message, ReactionCollector, MessageMentions: { USERS_PATTERN } } = require("discord.js")
 const voteEmojis = "🆗"
 
@@ -17,7 +22,7 @@ module.exports = {
         let reason = ""
 
         if (message.args.length >= 1) reason = message.args.slice(1).join(" ")
-        if (mentions.size !== 1 || !PATTERN.test(message.args[0]) || !reason) {
+        if (mentions.size !== 1 || !PATTERN.test(message.args[0]) || reason.length <= 10) {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
         } else {
             const member = mentions.first()
@@ -32,7 +37,7 @@ module.exports = {
                 embed: {
                     color: 0xFF0000,
                     title: "このユーザーを***kick***しますか？",
-                    description: `この投票は${voters*2}分以内に、${voters}人以上の投票でkickすることができます。\nなお、一度投票すると変更することは出来ません。`,
+                    description: `この投票は${voters*2}分以内に、${voters}人以上の投票でkickすることができます。\nなお、***一度投票すると変更することは出来ません。***`,
                     fields: [{
                         name: "対象ユーザー",
                         value: `**${member.displayName}**#${member.user.discriminator}`,
@@ -51,6 +56,7 @@ module.exports = {
                 },
             })
 
+            await voteMessage.pin()
             await voteMessage.react(voteEmojis)
 
             /** @type {ReactionCollector} */
@@ -59,15 +65,15 @@ module.exports = {
                 if (user.id !== message.client.user.id) vList.add(user.id)
 
                 return filter
-            }, { time: 5000 })
+            }, { time: (1000 * 60) * (voters * 2) })
 
             let count = 0
-            collector.on("collect", r => {
+            collector.on("collect", async r => {
                 count++
-                if (voters,1 <= count) {
+                if (voters <= count) {
                     try {
                         collector.stop("vote")
-                        // await message.guild.members.get(member.id).kick(reason)
+                        await member.kick(reason)
                         channel.send("kickしました。", global.syntax)
                     } catch (e) {
                         channel.send(`kickできませんでした。\n\n${e.message}`, global.syntax)
@@ -75,9 +81,11 @@ module.exports = {
                 }
             })
             
-            collector.on("end", async (collected, _reason) => {
+            collector.on("end", async (_, _reason) => {
                 if (_reason === "vote") return
                 channel.send("投票人数が一定数を超えなかったため、kickできませんでした。", global.syntax)
+                voteMessage.clearReactions()
+                voteMessage.unpin()
             })
         }
     }
@@ -85,16 +93,3 @@ module.exports = {
 
 // b;votekick @MENTION REASON
 // index:        0       1
-
-// 投票メッセージをピン留め
-// 同じ人が絵文字を2つ押した時
-
-// new Set().add(["ID", true])
-// { time: 1800000 }
-// { time: (1000 * 60) * (voters * 2) }
-
-/*  条件
-      ・一定時間内に一定数のyes投票でkick
-      ・yesよりもnoの投票が多ければキャンセル
-      ・一定時間に投票が集まらなかった場合
-*/
