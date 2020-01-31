@@ -64,8 +64,9 @@ module.exports = {
             let count = 0
             collector.on("collect", r => {
                 count++
-                if (voters <= count) {
+                if (voters,1 <= count) {
                     try {
+                        collector.stop()
                         // await message.guild.members.get(member.id).kick(reason)
                         channel.send("kickしました。", global.syntax)
                     } catch (e) {
