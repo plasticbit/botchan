@@ -18,8 +18,7 @@ module.exports = {
             reason = message.args.slice(1).join(" ")
         }
         
-        console.log(mentions.size !== 1 || !bool, message.args)
-        console.log(message.args[0])
+        console.log(!bool, message.args, USERS_PATTERN.lastIndex)
 
         // if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
         //     channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
