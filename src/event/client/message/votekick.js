@@ -1,5 +1,5 @@
 const { Message, ReactionCollector, MessageMentions: { USERS_PATTERN } } = require("discord.js")
-const voteEmojis = ["⭕", "❌"]
+const voteEmojis = "🆗"
 
 module.exports = {
     usage: "b;votekick @MENTION REASON",
@@ -11,7 +11,7 @@ module.exports = {
         // RegExp.lastIndex 回避のため
         const PATTERN = new RegExp(USERS_PATTERN, "")
 
-        const voterList = new Set()
+        const vList = new Set()
         const mentions = message.mentions.members
         const channel = message.channel
         let reason = "理由がありません！！"
@@ -32,7 +32,7 @@ module.exports = {
                 embed: {
                     color: 0xFF0000,
                     title: "このユーザーを***kick***しますか？",
-                    description: `この投票は${voters*2}分間有効で、${voters}人の投票が必要です。\nなお、一度投票すると変更することは出来ません。`,
+                    description: `この投票は${voters*2}分以内に、${voters}人以上の投票でkickすることができます。\nなお、一度投票すると変更することは出来ません。`,
                     fields: [{
                         name: "対象ユーザー",
                         value: `**${member.displayName}**#${member.user.discriminator}`,
@@ -44,38 +44,38 @@ module.exports = {
                     thumbnail: {
                         url: member.user.displayAvatarURL
                     },
-                    timestamp: new Date()
+                    timestamp: new Date(),
+                    footer: {
+                        text: "kickしますか？"
+                    }
                 },
             })
 
-            await voteMessage.react(voteEmojis[0])
-            await voteMessage.react(voteEmojis[1])
+            await voteMessage.react(voteEmojis)
 
             /** @type {ReactionCollector} */
             const collector = voteMessage.createReactionCollector((reaction, user) => {
-                const filter = voteEmojis.includes(reaction.emoji.name) && user.id !== message.client.user.id && user.id !== member.user.id && !voterList.has(user.id) && !user.bot
-                voterList.add(user.id)
+                const filter = voteEmojis　=== reaction.emoji.name && user.id !== member.user.id && !vList.has(user.id) && !user.bot
+                if (user.id !== message.client.user.id) vList.add(user.id)
 
                 return filter
             }, { time: 5000 })
 
-            collector.on("end", async collected => {
-                console.log(`Collected ${collected.size} items`)
-
-                if (true                          ||collected.size <= voters) {
-                    const yes = collected.get(voteEmojis[0])
-                    const no = collected.get(voteEmojis[1])
-
-                    console.log(yes, no)
-                    // try {
-                    //     // await message.guild.members.get(member.id).kick(reason)
-                    //     channel.send("kickしました。", global.syntax)
-                    // } catch (e) {
-                    //     channel.send(`kickできませんでした。\n\n${e.message}`, global.syntax)
-                    // }
-                } else {
-                    channel.send("投票人数が一定数を超えなかったため、kickできませんでした。", global.syntax)
+            let count = 0
+            collector.on("collect", r => {
+                count++
+                if (voters <= count) {
+                    try {
+                        // await message.guild.members.get(member.id).kick(reason)
+                        channel.send("kickしました。", global.syntax)
+                    } catch (e) {
+                        channel.send(`kickできませんでした。\n\n${e.message}`, global.syntax)
+                    }
                 }
+            })
+            
+            collector.on("end", async collected => {
+                channel.send("投票人数が一定数を超えなかったため、kickできませんでした。", global.syntax)
             })
         }
     }
@@ -91,4 +91,8 @@ module.exports = {
 // { time: 1800000 }
 // { time: (1000 * 60) * (voters * 2) }
 
- // collector.on("collect", r => console.log(`Collected ${r.emoji.name}`))
+/*  条件
+      ・一定時間内に一定数のyes投票でkick
+      ・yesよりもnoの投票が多ければキャンセル
+      ・一定時間に投票が集まらなかった場合
+*/
