@@ -57,13 +57,12 @@ module.exports = {
                 voterList.add(user.id)
 
                 return filter
-            }, { time: (1000 * 60) * (voters * 2) })
+            }, { time: 15000 })
 
-            // collector.on("collect", r => console.log(`Collected ${r.emoji.name}`))
             collector.on("end", async collected => {
                 console.log(`Collected ${collected.size} items`)
 
-                if (collected.size <= voters) {
+                if (true                          ||collected.size <= voters) {
                     console.log(collected)
                     // try {
                     //     // await message.guild.members.get(member.id).kick(reason)
@@ -87,3 +86,6 @@ module.exports = {
 
 // new Set().add(["ID", true])
 // { time: 1800000 }
+// { time: (1000 * 60) * (voters * 2) }
+
+ // collector.on("collect", r => console.log(`Collected ${r.emoji.name}`))
