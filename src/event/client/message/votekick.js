@@ -76,7 +76,6 @@ module.exports = {
 
             let count = 0
             collector.on("collect", async r => {
-                console.log(message.member.hasPermission("ADMINISTRATOR"), r.emoji.name === voteEmojis[1])
                 if (r.emoji.name === voteEmojis[1] && message.member.hasPermission("ADMINISTRATOR")) {
                     collector.stop("cancel")
                     return
