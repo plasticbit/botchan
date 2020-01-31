@@ -11,13 +11,13 @@ module.exports = {
         const channel = message.channel
         const reason = message.args[2]
 
-        if (mentions.size() !== 1 || !USERS_PATTERN.test(message.args[0])) {
+        if (mentions.size !== 1 || !USERS_PATTERN.test(message.args[0])) {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
         } else {
             const member = mentions.first()
             const voteMessage = channel.send({
                 embed: {
-                    color: 16711680,
+                    color: 0xFF0000,
                     author: {
                         name: message.member.displayName,
                         icon_url: message.author.displayAvatarURL
