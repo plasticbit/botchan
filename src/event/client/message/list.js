@@ -4,5 +4,6 @@ module.exports = {
     rmRole: require("./rmRole"),
     newQuestion: require("./newQuestion"),
     close: require("./close"),
-    react: require("./react")
+    react: require("./react"),
+    votekick: require("votekick")
 }
