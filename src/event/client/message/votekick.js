@@ -35,7 +35,7 @@ module.exports = {
                         // inline: true
                     }],
                     image: {
-                        url: member.displayAvatarURL
+                        url: member.user.displayAvatarURL
                     },
                     timestamp: new Date()
                 }
