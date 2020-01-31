@@ -18,12 +18,18 @@ module.exports = {
             const voteMessage = channel.send({
                 embed: {
                     color: 0xFF0000,
-                    author: {
-                        name: message.member.displayName,
-                        icon_url: message.author.displayAvatarURL
-                    },
                     title: "このユーザーをキックしますか？",
-                    image: {
+                    field: [{
+                        name: "対象ユーザー",
+                        value: member.displayName,
+                        inline: true
+                    },
+                    {
+                        name: "理由",
+                        value: reason,
+                        inline: true
+                    }],
+                    thumbnail: {
                         url: member.displayAvatarURL
                     }
                 }
