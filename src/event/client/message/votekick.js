@@ -31,7 +31,9 @@ module.exports = {
                     }],
                     thumbnail: {
                         url: member.displayAvatarURL
-                    }
+                    },
+
+                    timestamp: new Date()
                 }
             })
         }
