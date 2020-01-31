@@ -27,7 +27,7 @@ module.exports = {
             const voteMessage = await channel.send({
                 embed: {
                     color: 0xFF0000,
-                    title: "このユーザーを**kick**しますか？",
+                    title: "このユーザーを***kick***しますか？",
                     fields: [{
                         name: "対象ユーザー",
                         value: member.displayName,
