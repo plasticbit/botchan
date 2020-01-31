@@ -63,7 +63,10 @@ module.exports = {
                 console.log(`Collected ${collected.size} items`)
 
                 if (true                          ||collected.size <= voters) {
-                    console.log(collected)
+                    const yes = collected.get(voteEmojis[0]).count-1
+                    const no = collected.get(voteEmojis[1]).count-1
+
+                    console.log(yes, no)
                     // try {
                     //     // await message.guild.members.get(member.id).kick(reason)
                     //     channel.send("kickしました。", global.syntax)
