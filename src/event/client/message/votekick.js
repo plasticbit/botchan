@@ -5,6 +5,7 @@
 
 const { Message, ReactionCollector, MessageMentions: { USERS_PATTERN } } = require("discord.js")
 const voteEmojis = "🆗"
+let progress = false
 
 module.exports = {
     usage: "b;votekick @MENTION REASON",
@@ -13,6 +14,8 @@ module.exports = {
 
     /** @param {Message} message **/
     Do: async message => {
+        if (progress) return
+        
         // RegExp.lastIndex 回避のため
         const PATTERN = new RegExp(USERS_PATTERN, "")
 
@@ -61,6 +64,7 @@ module.exports = {
 
             /** @type {ReactionCollector} */
             const collector = voteMessage.createReactionCollector((reaction, user) => {
+                progress = true
                 const filter = voteEmojis　=== reaction.emoji.name && user.id !== member.user.id && !vList.has(user.id) && !user.bot
                 if (user.id !== message.client.user.id) vList.add(user.id)
 
@@ -82,6 +86,7 @@ module.exports = {
             })
             
             collector.on("end", async (_, _reason) => {
+                progress = false
                 if (_reason === "vote") return
                 channel.send("投票人数が一定数を超えなかったため、kickできませんでした。", global.syntax)
                 voteMessage.clearReactions()
