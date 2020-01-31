@@ -13,6 +13,7 @@ module.exports = {
         const channel = message.channel
         let reason = "理由がありません！！"
 
+        if (message.args.length >= 1) reason = message.args.slice(1).join(" ")
         if (mentions.size !== 1 || !PATTERN.test(message.args[0])) {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON", global.syntax)
         } else {
@@ -31,10 +32,9 @@ module.exports = {
                         value: reason,
                         // inline: true
                     }],
-                    thumbnail: {
+                    image: {
                         url: member.displayAvatarURL
                     },
-
                     timestamp: new Date()
                 }
             })
