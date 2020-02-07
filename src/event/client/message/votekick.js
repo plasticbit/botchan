@@ -25,8 +25,8 @@ module.exports = {
     Do: async message => {
         const channel = message.channel
 
-        if (inProgress || oneYearAgo() > message.member.joinedTimestamp) return
         if (!message.args.length) return channel.send(description, global.syntax)
+        if (inProgress || oneYearAgo() > message.member.joinedTimestamp) return
 
         // RegExp.lastIndex 回避のため
         const PATTERN = new RegExp(USERS_PATTERN, "")
