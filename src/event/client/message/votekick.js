@@ -25,7 +25,7 @@ module.exports = {
     Do: async message => {
         const channel = message.channel
 
-        if (!message.args.length) return channel.send(description, global.syntax)
+        if (!message.args.length) return channel.send(`${description}\n\n参加してから ${Math.trunc((Date.now() - message.member.joinedTimestamp) / 86400000)}日目`, global.syntax)
         if (inProgress || oneYearAgo() > message.member.joinedTimestamp) return
 
         // RegExp.lastIndex 回避のため
