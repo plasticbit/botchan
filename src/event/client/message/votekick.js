@@ -26,7 +26,7 @@ module.exports = {
         const channel = message.channel
 
         if (!message.args.length) return channel.send(`${description}\n\n参加してから ${Math.trunc((Date.now() - message.member.joinedTimestamp) / 86400000)}日目`, global.syntax)
-        if (inProgress || oneYearAgo() > message.member.joinedTimestamp) return
+        if (inProgress || oneYearAgo() > message.member.joinedTimestamp) return console.log(oneYearAgo(), message.member.joinedTimestamp)
 
         // RegExp.lastIndex 回避のため
         const PATTERN = new RegExp(USERS_PATTERN, "")
