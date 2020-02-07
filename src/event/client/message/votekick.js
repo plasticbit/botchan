@@ -11,7 +11,7 @@ const description =
 
 
 const { Message, ReactionCollector, MessageMentions: { USERS_PATTERN } } = require("discord.js")
-const oneYearAgo = () => Date.now() - 31536000000
+const aYearAgo = () => Date.now() - 31536000000
 const getReason = args => args.length >= 1 ? args.slice(1).join(" ") : ""
 const voteEmojis = ["🆗", "🆖"]
 let inProgress = false
@@ -26,7 +26,7 @@ module.exports = {
         const channel = message.channel
 
         if (!message.args.length) return channel.send(`${description}\n\n参加してから ${Math.trunc((Date.now() - message.member.joinedTimestamp) / 86400000)}日目`, global.syntax)
-        if (inProgress || oneYearAgo() > message.member.joinedTimestamp) return console.log(oneYearAgo(), message.member.joinedTimestamp)
+        if (inProgress || message.member.joinedTimestamp > aYearAgo()) return
 
         // RegExp.lastIndex 回避のため
         const PATTERN = new RegExp(USERS_PATTERN, "")
