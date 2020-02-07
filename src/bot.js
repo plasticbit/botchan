@@ -28,5 +28,5 @@ process.on("exit", async () => {
 }).on("warning", warning => {
     console.log(`Warning (process): ${warning.stack}\n`)
 }).on("unhandledRejection", (reason, promise) => {
-    console.log(`Reason:\n${reason}\nPromise: \n%o`, promise)
+    console.log(`Reason: ${reason}\n%o`, promise)
 })

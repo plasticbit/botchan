@@ -12,7 +12,7 @@ const description =
 
 const { Message, ReactionCollector, MessageMentions: { USERS_PATTERN } } = require("discord.js")
 const aYearAgo = () => Date.now() - 31536000000
-const getReason = args => args.length >= 1 ? args.slice(1).join(" ") : ""
+const getReason = ({ args }) => args.length >= 1 ? args.slice(1).join(" ") : ""
 const voteEmojis = ["🆗", "🆖"]
 let inProgress = false
 
@@ -32,7 +32,7 @@ module.exports = {
         const PATTERN = new RegExp(USERS_PATTERN, "")
         
         const mentions = message.mentions.members
-        const reason = getReason()
+        const reason = getReason(message)
 
         if (mentions.size !== 1 || !PATTERN.test(message.args[0]) || reason.length <= 10) {
             channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON(length <= 10)", global.syntax)
