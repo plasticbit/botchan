@@ -13,22 +13,20 @@ client.login(process.env.BOT_TOKEN)
 const handler = require("./event/handler")
 
 // イベント
-client.on("ready", () => handler.ready(client))
-.on("message", handler.message)
-.on("guildMemberAdd", handler.memberAdd)
-.on("disconnect", handler.disconnect)
-.on("warn", handler.warn)
-.on("error", handler.error)
+client
+    .on("message", handler.message)
+    .on("guildMemberAdd", handler.memberAdd)
+    .on("disconnect", handler.disconnect)
+    .on("warn", handler.warn)
+    .on("error", handler.error)
+    .on("ready", () => handler.ready(client))
 
-process.on("exit", async () => {
-    await client.destroy()
-}).on("SIGINT", async () => {
-    await client.destroy()
-    process.exit(0)
-}).on("SIGTERM", async () => {
-    await client.destroy()
-}).on("warning", warning => {
-    console.log(`Warning (process): ${warning.stack}\n`)
-}).on("unhandledRejection", (reason, promise) => {
-    console.log(`Reason: ${reason}\n%o`, promise)
-})
+process
+    .on("exit", () => client.destroy())
+    .on("SIGTERM", () => client.destroy())
+    .on("warning", warning => console.log(`Warning (process): ${warning.stack}\n`))
+    .on("unhandledRejection", (reason, promise) => console.log(`Reason: ${reason}\n%o`, promise))
+    .on("SIGINT", () => {
+        client.destroy()
+        process.exit(0)
+    })
