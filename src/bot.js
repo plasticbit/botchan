@@ -1,3 +1,5 @@
+// Discord.js : https://github.com/discordjs/discord.js
+// Document   : https://discord.js.org/#/
 const { Client, Message } = require("discord.js")
 const client = new Client({
     messageCacheMaxSize: 500,
