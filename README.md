@@ -9,5 +9,5 @@ Prefixは`b;`です。
 
 # 環境
 - [heroku](https://jp.heroku.com/)
-- Node.js (v12.15.0)
+- Node.js (v12.16.1)
 - NPM (v6.13.4)
