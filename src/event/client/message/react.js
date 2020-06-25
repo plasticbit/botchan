@@ -44,7 +44,7 @@ module.exports = {
 
         }, { timeout: 30000 })
 
-        msg.edit("R E A D Y !!", global.syntax)
+        msg.edit("準備できたよ", global.syntax)
     }
 }
 /* https://discord.js.org/#/docs/main/stable/class/Message?scrollTo=createReactionCollector
