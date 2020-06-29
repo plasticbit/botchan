@@ -5,7 +5,7 @@ Prefixは`b;`です。
 詳細は`b;help`から使用できるコマンド一覧を確認できます。
 
 # 使用させて頂いているライブラリ
-- [discord.js](https://github.com/discordjs/discord.js)
+- [discord.js](https://github.com/discordjs/discord.js) (v11.5.1)
 
 # 環境
 - [heroku](https://jp.heroku.com/)
