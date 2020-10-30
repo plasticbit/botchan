@@ -18,7 +18,7 @@
   "homepage": "https://github.com/BinaryDolphin29/botchan#readme",
   "dependencies": {
     "bufferutil": "^4.0.1",
-    "discord.js": "^11.5.1",
+    "discord.js": "^11.6.1",
     "erlpack": "github:hammerandchisel/erlpack"
   }
 }
