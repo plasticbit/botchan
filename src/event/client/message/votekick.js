@@ -35,7 +35,7 @@ module.exports = {
         const reason = getReason(message)
 
         if (mentions.size !== 1 || !PATTERN.test(message.args[0]) || reason.length <= 10) {
-            channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON(length <= 10)", global.syntax)
+            channel.send("引数が無効です。\n\n例: b;votekick @MENTION REASON(length >= 10)", global.syntax)
         } else {
             const member = mentions.first()
             if (!member.kickable || member === message.member) {
