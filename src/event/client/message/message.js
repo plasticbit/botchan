@@ -8,7 +8,7 @@ module.exports = message => {
         return
     }
 
-    console.log(message.guild.members)
+    console.log(message.guild.members.chache.size)
 
     if (message.content.substr(0, 2) == prefix) {
         const content = message.content.substr(2).split(/\s/)
