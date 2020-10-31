@@ -23,7 +23,7 @@ module.exports = {
 
     /** @param {Message} message **/
     Do: async message => {
-        console.log(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size * 0.1)
+        console.log(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size)
         const channel = message.channel
 
         if (!message.args.length) return channel.send(`${description}\n\n参加してから ${Math.trunc((Date.now() - message.member.joinedTimestamp) / 86400000)}日目`, global.syntax)
