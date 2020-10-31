@@ -23,7 +23,8 @@ module.exports = {
 
     /** @param {Message} message **/
     Do: async message => {
-        console.log(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size)
+        console.log(message.guild.members.filter(m => !m.user.bot || m.presence.status === "online").size)
+        console.log(message.guild.members.filter(m => !m.user.bot || m.presence.status === "online").size * 0.1)
         const channel = message.channel
 
         if (!message.args.length) return channel.send(`${description}\n\n参加してから ${Math.trunc((Date.now() - message.member.joinedTimestamp) / 86400000)}日目`, global.syntax)
@@ -44,13 +45,13 @@ module.exports = {
                 return
             }
 
-            // offline, idle, botを除くギルドユーザーの10%, 5人に満たないサーバーは2人に設定
-            const voters = Math.round(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size * 0.1) || 2
+            // offline, idle, botを除くギルドユーザーの10%
+            const voters = Math.round(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size * 0.1)
             const voteMessage = await channel.send("@here", {
                 embed: {
                     color: 0xFF0000,
                     title: "このユーザーを***kick***しますか？",
-                    description: `この投票は${voters*2}分以内に、${voters}人以上の投票でkickすることができます。\nなお、***一度投票すると変更することは出来ません。***`,
+                    description: `この投票は${voters*4}分以内に、${voters}人以上の投票でkickすることができます。\nなお、***一度投票すると変更することは出来ません。***`,
                     fields: [{
                         name: "対象ユーザー",
                         value: `**${member.displayName}**#${member.user.discriminator}`,
@@ -80,7 +81,7 @@ module.exports = {
                 if (user.id !== message.client.user.id) vList.add(user.id)
 
                 return filter
-            }, { time: (1000 * 60) * (voters * 2) })
+            }, { time: (1000 * 60) * (voters * 4) })
 
             let count = 0
             collector.on("collect", async r => {
