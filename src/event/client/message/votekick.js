@@ -23,7 +23,7 @@ module.exports = {
 
     /** @param {Message} message **/
     Do: async message => {
-        console.log(message.guild.members.filter(m => !m.user.bot || m.presence.status === "online"))
+        console.log(message.guild.members.size)
         console.log(message.guild.members.filter(m => !m.user.bot || m.presence.status === "online").size * 0.1)
         const channel = message.channel
 
