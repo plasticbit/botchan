@@ -7,7 +7,6 @@ const client = new Client({
     messageSweepInterval: 60,
     ws: {
         intents: "GUILD_MEMBERS",
-        intents: "GUILD_PRESENCES"
     }
 })
 
