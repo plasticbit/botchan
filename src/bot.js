@@ -1,7 +1,9 @@
 // Discord.js : https://github.com/discordjs/discord.js
 // Document   : https://discord.js.org/#/
-const { Client } = require("discord.js")
-const client = new Client()
+const { Client, Intents } = require("discord.js")
+const client = new Client({
+    ws: Intents.ALL
+})
 
 // ログイン
 client.login(process.env.BOT_TOKEN)
