@@ -2,10 +2,9 @@
 // Document   : https://discord.js.org/#/
 const { Client, Message } = require("discord.js")
 const client = new Client({
-    messageCacheMaxSize: 500,
-    messageCacheLifetime: 120,
-    messageSweepInterval: 60,
-    ws: ["GUILD_MEMBERS", "GUILD_PRESENCES"]
+    ws: {
+        intents: ["GUILD_MEMBERS", "GUILD_PRESENCES"]
+    }
 })
 
 // ログイン
