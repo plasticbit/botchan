@@ -1,10 +1,8 @@
 // Discord.js : https://github.com/discordjs/discord.js
 // Document   : https://discord.js.org/#/
-const { Client, Message } = require("discord.js")
+const { Client, Message, Intents } = require("discord.js")
 const client = new Client({
-    ws: {
-        intents: ["GUILD_MEMBERS", "GUILD_PRESENCES"]
-    }
+    ws: Intents.ALL
 })
 
 // ログイン
