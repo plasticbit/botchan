@@ -44,7 +44,7 @@ module.exports = {
                 return
             }
 
-            // offline, idle, botを除くギルドユーザーの10%
+            // offline, botを除くギルドユーザーの10%
             try {
                 await message.guild.members.fetch()
             } catch (e) {
@@ -52,7 +52,7 @@ module.exports = {
                 return
             }
 
-            const here = message.guild.members.cache.filter(m => !m.user.bot || m.presence.status === "online").size
+            const here = message.guild.members.cache.filter(m => !m.user.bot && m.presence.status === "online").size
             const voters = Math.round(here * 0.1)
             const voteMessage = await channel.send("@here", {
                 embed: {
