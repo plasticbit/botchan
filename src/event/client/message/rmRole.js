@@ -5,11 +5,10 @@ module.exports = {
     examples: "b;rmRole\nb;rmRole 4\nb;rmRole role",
     description: "ユーザーの役職を取り外します。",
 
-    /** @param {global.Message} message */
     Do: async message => {
         const map = new Map()
-        const Roles = message.member.roles.filter(r =>
-            r.calculatedPosition < message.guild.me.highestRole.calculatedPosition &&
+        const Roles = message.member.roles.cache.filter(r =>
+            r.position < message.guild.me.roles.highest.position &&
             !r.managed &&
             r.name !== "@everyone"
         ).sort((a, b) => {
@@ -30,7 +29,7 @@ module.exports = {
             return `${size} ${role.name}`
         })
 
-        if (!!!Roles.size) {
+        if (Roles.size <= 0) {
             message.reply("取り外しできる役職が存在しません😭", global.syntax)
             return
         }
@@ -80,7 +79,7 @@ module.exports = {
 
             if (!result) {
                 message.reply("その役職は見つかりませんでした😭", global.syntax)
-                    .then(m => m.delete(7000))
+                    .then(m => m.delete({ timeout: 7000 }))
                 return
             }
 
@@ -110,12 +109,12 @@ module.exports = {
                     switch (ReactName) {
                         case Emoji[1]:
                             const cancel = await message.reply("キャンセルしました👋", global.syntax)
-                            cancel.delete(5000)
+                            cancel.delete({ timeout: 5000 })
                         break
 
                         case Emoji[0]:
                             try {
-                                await message.member.removeRole(result, `${message.author.username} -> ${result.name}`)
+                                await message.member.roles.remove(result, `${message.author.username} -> ${result.name}`)
                                 await message.reply(`取り外しました。\n\`\`\`c\n\"${result.name}\"\n\`\`\``)
                             } catch (err) {
                                 console.log(err)
@@ -133,7 +132,7 @@ module.exports = {
             ).catch(console.log)
         } else {
             message.reply(embed)
-                .then(m => m.delete(15000))
+                .then(m => m.delete({ timeout: 15000 }))
         }
     }
 }

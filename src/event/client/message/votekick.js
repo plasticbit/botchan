@@ -1,6 +1,7 @@
 const description = 
 `このコマンドは、一定時間内に一定数のyes投票でkickすることが出来ます。
 
+
 このコマンドを実行するための条件
     ・ サーバーに参加してから1年以上のユーザー
     ・ botがkickできるユーザー
@@ -44,12 +45,21 @@ module.exports = {
             }
 
             // offline, idle, botを除くギルドユーザーの10%
-            const voters = Math.round(message.guild.members.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size * 0.1)
+            try {
+                await message.guild.members.fetch()
+            } catch (e) {
+                console.log(e)
+                return
+            }
+
+            const here = message.guild.members.cache.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size
+            const voters = Math.round(here * 0.1)
+            console.log(voters)
             const voteMessage = await channel.send("@here", {
                 embed: {
                     color: 0xFF0000,
                     title: "このユーザーを***kick***しますか？",
-                    description: `この投票は${voters*4}分以内に、${voters}人以上の投票でkickすることができます。\nなお、***一度投票すると変更することは出来ません。***`,
+                    description: `この投票は${(voters * 4).toString(10)}分以内に、${voters.toString(10)}人以上の投票でkickすることができます。\nなお、***一度投票すると変更することは出来ません。***`,
                     fields: [{
                         name: "対象ユーザー",
                         value: `**${member.displayName}**#${member.user.discriminator}`,
@@ -93,10 +103,12 @@ module.exports = {
                     try {
                         collector.stop("vote")
                         await member.kick(reason)
-                        channel.send("kickしました。", global.syntax)
+                        channel.send("kickしました。", global.syntax)                        
                     } catch (e) {
                         channel.send(`kickできませんでした。\n\n${e.message}`, global.syntax)
                     }
+
+                    voteMessage.unpin()
                 }
             })
             

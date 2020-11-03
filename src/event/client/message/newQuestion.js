@@ -8,17 +8,17 @@ module.exports = {
 
         const guild = message.guild
         const channel = message.channel
-        const channels = guild.channels
+        const channels = guild.channels.cache
         const filter = channels.filter(ch => ch.name === channel.name)
 
         if (channel.parentID !== "640931602309971970") {
-            message.reply("このコマンドは`LANG`カテゴリーのみ有効です。")
+            message.reply("このコマンドは`LIBRARIES`カテゴリーのみ有効です。")
         } else if (filter.size >= 3) {
             message.reply("チャンネルが複数あります。\nこれ以上チャンネルを作ることはできません！", global.syntax)
         } else {
             // console.log(guild.channels.filter(c => c.parentID === "640931602309971970").map(c => `${c.name}: ${c.calculatedPosition}`))
 
-            const newChannel = await guild.createChannel(channel.name, { type: "text" })
+            const newChannel = await guild.channels.create(channel.name, { type: "text" })
             await newChannel.setTopic(`${message.author.id},${Date.now()}`)
             await newChannel.setParent("640931602309971970")
             // await newChannel.setPosition(channel.position++)

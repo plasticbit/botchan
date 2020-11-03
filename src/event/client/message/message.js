@@ -1,5 +1,7 @@
+const { Message } = require("discord.js")
 const list = require("./list")
 
+/** @param {Message} message */
 module.exports = message => {
     const prefix = "b;"
     const client = message.client
@@ -7,8 +9,6 @@ module.exports = message => {
     if (message.author.id === client.user.id || message.channel.type !== "text") {
         return
     }
-
-    console.log(message.guild.members.size)
 
     if (message.content.substr(0, 2) == prefix) {
         const content = message.content.substr(2).split(/\s/)

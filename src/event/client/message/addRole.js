@@ -9,11 +9,11 @@ module.exports = {
     Do: async message => {
         const map = new Map()
         const member = message.member
-        const Roles = message.guild.roles.filter(_ =>
-            _.calculatedPosition < message.guild.me.highestRole.calculatedPosition &&
+        const Roles = message.guild.roles.cache.filter(_ =>
+            _.position < message.guild.me.roles.highest.position &&
             !_.managed &&
             !/@everyone|Mute/.test(_.name) &&
-            !message.member.roles.has(_.id)
+            !message.member.roles.cache.has(_.id)
         ).sort((a, b) => {
             a = a.position
             b = b.position
@@ -25,7 +25,7 @@ module.exports = {
             }
         })
 
-        if (!!!Roles.size) {
+        if (Roles.size <= 0) {
             message.reply("追加できる役職が存在しません😭", global.syntax)
             return
         }
@@ -83,7 +83,7 @@ module.exports = {
 
             if (!result) {
                 message.reply("その役職は見つかりませんでした😭", global.syntax)
-                    .then(m => m.delete(7000))
+                    .then(m => m.delete({ timeout: 7000 }))
                 return
             }
 
@@ -113,12 +113,12 @@ module.exports = {
                     switch (ReactName) {
                         case Emoji[1]:
                             message.reply("キャンセルしました👋", global.syntax)
-                                .then(m => m.delete(7000))
+                                .then(m => m.delete({ timeout: 7000 }))
                             break
 
                         case Emoji[0]:
                             try {
-                                await member.addRole(result, `${message.author.username} -> ${result.name}`)
+                                await member.roles.add(result, `${message.author.username} -> ${result.name}`)
                                 message.reply(`役職を追加しました。\n\`\`\`c\n\"${result.name}\"\n\`\`\``)
                             } catch (err) {
                                 console.log(err)
@@ -137,7 +137,7 @@ module.exports = {
 
         } else {
             message.reply(embed)
-                .then(m => m.delete(15000))
+                .then(m => m.delete({ timeout: 15000 }))
         }
     }
 }

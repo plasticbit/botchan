@@ -38,7 +38,7 @@ module.exports = {
                 msg.edit(`いま => ${input.join("")}`, global.syntax)
             } else {
                 msg.edit(`けっか => ${input.join("")}`, global.syntax)
-                msg.clearReactions()
+                msg.reactions.removeAll()
             }
 
 
