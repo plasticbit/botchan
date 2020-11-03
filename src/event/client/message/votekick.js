@@ -54,12 +54,11 @@ module.exports = {
 
             const here = message.guild.members.cache.filter(m => !m.user.bot || !["offline", "idle"].includes(m.presence.status)).size
             const voters = Math.round(here * 0.1)
-            console.log(voters)
             const voteMessage = await channel.send("@here", {
                 embed: {
                     color: 0xFF0000,
                     title: "このユーザーを***kick***しますか？",
-                    description: `この投票は${(voters * 4).toString(10)}分以内に、${voters.toString(10)}人以上の投票でkickすることができます。\nなお、***一度投票すると変更することは出来ません。***`,
+                    description: `この投票は${(voters * 3).toString(10)}分以内に、${voters.toString(10)}人以上の投票でkickすることができます。\nなお、***一度投票すると変更することは出来ません。***`,
                     fields: [{
                         name: "対象ユーザー",
                         value: `**${member.displayName}**#${member.user.discriminator}`,
