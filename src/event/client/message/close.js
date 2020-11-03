@@ -3,7 +3,6 @@ module.exports = {
     examples: "b;close",
     description: "b;newQuestion で作成したチャンネルを削除します。",
 
-    /** @param {global.Message} message */
     Do: message => {
         const channel = message.channel
         const authorID = message.author.id
