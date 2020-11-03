@@ -18,7 +18,7 @@ module.exports = {
         } else {
             // console.log(guild.channels.filter(c => c.parentID === "640931602309971970").map(c => `${c.name}: ${c.calculatedPosition}`))
 
-            const newChannel = await guild.channels.create(channel.name, { type: "text" })
+            const newChannel = await guild.channels.create(`${channel.name} - clone`, { type: "text" })
             await newChannel.setTopic(`${message.author.id},${Date.now()}`)
             await newChannel.setParent("640931602309971970")
             // await newChannel.setPosition(channel.position++)
